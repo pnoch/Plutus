@@ -148,6 +148,17 @@ if __name__ == '__main__':
             print('invalid input: ' + command  + '\nrun `python3 plutus.py help` for help')
             sys.exit(-1)
     
+    print('creating output file ...')
+    if os.path.isfile('plutus.txt'):
+       print("output file already exists")
+    else:
+       lines = ['If you find a Bitcoin wallet with a balance, the wallet details will show up here:']
+       with open('plutus.txt', 'w') as f:
+          for line in lines:
+             f.write(line)
+             f.write('\n')
+       print('DONE')
+
     print('reading database files...')
     database = set()
     for filename in os.listdir(DATABASE):
@@ -157,7 +168,6 @@ if __name__ == '__main__':
                 if address.startswith('1'):
                     database.add(address[-args['substring']:])
     print('DONE')
-
     print('database size: ' + str(len(database)))
     print('processes spawned: ' + str(args['cpu_count']))
     
